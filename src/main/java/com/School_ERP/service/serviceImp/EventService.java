@@ -1,6 +1,6 @@
 package com.School_ERP.service.serviceImp;
 
-import com.School_ERP.model.Event;
+import com.School_ERP.entity.Event;
 import com.School_ERP.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

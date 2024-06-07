@@ -1,5 +1,5 @@
 package com.School_ERP.service.serviceImp;
-import com.School_ERP.model.Parent;
+import com.School_ERP.entity.Parent;
 import com.School_ERP.repository.ParentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

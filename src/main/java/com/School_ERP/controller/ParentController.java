@@ -1,6 +1,6 @@
 package com.School_ERP.controller;
 import com.School_ERP.links.ParentLinks;
-import com.School_ERP.model.Parent;
+import com.School_ERP.entity.Parent;
 import com.School_ERP.service.serviceImp.ParentServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

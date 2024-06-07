@@ -1,7 +1,7 @@
 package com.School_ERP.controller;
 
 import com.School_ERP.links.EventLinks;
-import com.School_ERP.model.Event;
+import com.School_ERP.entity.Event;
 import com.School_ERP.repository.EventRepository;
 import com.School_ERP.service.serviceImp.EventService;
 import com.fasterxml.jackson.databind.ObjectMapper;
