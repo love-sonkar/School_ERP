@@ -3,7 +3,7 @@ package com.School_ERP.controller;
 import com.School_ERP.links.EventLinks;
 import com.School_ERP.model.Event;
 import com.School_ERP.repository.EventRepository;
-import com.School_ERP.service.EventService;
+import com.School_ERP.service.serviceImp.EventService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

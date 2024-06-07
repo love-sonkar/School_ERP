@@ -1,7 +1,7 @@
 package com.School_ERP.controller;
 import com.School_ERP.links.ParentLinks;
 import com.School_ERP.model.Parent;
-import com.School_ERP.service.ParentService;
+import com.School_ERP.service.serviceImp.ParentServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import java.util.List;
 public class ParentController {
 
     @Autowired
-    ParentService parentService;
+    ParentServiceImp parentService;
 
     @GetMapping(path = ParentLinks.GET_ALL)
     public List<Parent> getAllParent(){

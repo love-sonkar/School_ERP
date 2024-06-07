@@ -29,4 +29,5 @@ public class Parent {
     @Column
     @NotNull()
     private long contact;
+
 }

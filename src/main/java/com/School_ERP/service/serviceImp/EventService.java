@@ -1,4 +1,4 @@
-package com.School_ERP.service;
+package com.School_ERP.service.serviceImp;
 
 import com.School_ERP.model.Event;
 import com.School_ERP.repository.EventRepository;
