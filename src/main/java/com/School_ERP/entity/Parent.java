@@ -30,4 +30,7 @@ public class Parent {
     @NotNull()
     private long contact;
 
+    @Column
+    @NotNull
+    private long studentId;
 }
