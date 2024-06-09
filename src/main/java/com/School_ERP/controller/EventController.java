@@ -3,7 +3,7 @@ package com.School_ERP.controller;
 import com.School_ERP.links.EventLinks;
 import com.School_ERP.entity.Event;
 import com.School_ERP.repository.EventRepository;
-import com.School_ERP.service.serviceImp.EventService;
+import com.School_ERP.service.serviceImp.EventServiceImp;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class EventController {
     EventRepository eventRepo;
 
     @Autowired
-    EventService eventService;
+    EventServiceImp eventServiceImp;
 
     @GetMapping(path = EventLinks.GET_ALL_EVENT)
     public List<Event> getAllEvent(){
@@ -31,18 +31,18 @@ public class EventController {
     @PostMapping(path = EventLinks.ADD_EVENT)
     public ResponseEntity<?> addEvent(@RequestParam("event") String event, @RequestParam("picture") MultipartFile picture) throws Exception {
         Event ee = new ObjectMapper().readValue(event.toString(),Event.class);
-        return eventService.addEventService(ee,picture);
+        return eventServiceImp.addEventService(ee,picture);
     }
 
     @PostMapping(path = EventLinks.UPDATE_LINK)
     public ResponseEntity<?> updateEvent(@RequestParam("event") String event, @PathVariable String id) throws Exception {
         Event ee = new ObjectMapper().readValue(event.toString(),Event.class);
-        return eventService.updateEventService(ee, Long.parseLong(id));
+        return eventServiceImp.updateEventService(ee, Long.parseLong(id));
     }
 
     @DeleteMapping(path = EventLinks.DELETE_LINK)
     public ResponseEntity<?> deleteEvent(@PathVariable String id){
-        return eventService.deleteEvent(Long.parseLong(id));
+        return eventServiceImp.deleteEvent(Long.parseLong(id));
     }
 
 }

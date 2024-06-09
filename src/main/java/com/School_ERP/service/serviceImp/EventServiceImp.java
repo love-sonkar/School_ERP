@@ -2,6 +2,7 @@ package com.School_ERP.service.serviceImp;
 
 import com.School_ERP.entity.Event;
 import com.School_ERP.repository.EventRepository;
+import com.School_ERP.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +15,13 @@ import java.sql.Timestamp;
 import java.util.Random;
 
 @Service
-public class EventService {
+public class EventServiceImp implements EventService {
 
     @Autowired
     private EventRepository eventRepo;
 
 
+    @Override
     public ResponseEntity<?> addEventService(Event event, MultipartFile picture) throws IOException {
         if (!picture.isEmpty()) {
             String profileUploadDir = "D:\\new\\RWISchoolProject\\src\\main\\resources\\static\\picture";
@@ -46,6 +48,7 @@ public class EventService {
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Error");
     }
 
+    @Override
     public ResponseEntity<?> updateEventService(Event event, long id) throws IOException {
         Event ee = eventRepo.findById(id);
         if(ee == null) {
