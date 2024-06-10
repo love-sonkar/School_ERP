@@ -47,7 +47,7 @@ public class ParentServiceImp implements ParentService {
             if(String.valueOf(parent.getContact()).length() <= 9){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Wrong contact detail");
             }
-            if(!String.valueOf(parent.getStudentId()).isEmpty()){
+            if(String.valueOf(parent.getStudentId()).isEmpty()){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Wrong Student id");
             }
             Parent addedParent = parentRepo.save(parent);
