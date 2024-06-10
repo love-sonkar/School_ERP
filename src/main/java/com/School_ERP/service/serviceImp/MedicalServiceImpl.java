@@ -53,6 +53,7 @@ public class MedicalServiceImpl implements MedicalService {
 
     private MedicalDto convertToDto(Medical medical) {
         MedicalDto medicalDto = new MedicalDto();
+        medicalDto.setMedicalId(medical.getMedicalId());
         medicalDto.setHandicap(medical.getHandicap());
         medicalDto.setMedicalCondition(medical.getMedical_condition());
         medicalDto.setAllergies(medical.getAllergies());
@@ -62,6 +63,7 @@ public class MedicalServiceImpl implements MedicalService {
 
     private Medical convertToEntity(MedicalDto medicalDto) {
         Medical medical = new Medical();
+        medical.setMedicalId(medicalDto.getMedicalId());
         medical.setHandicap(medicalDto.getHandicap());
         medical.setMedical_condition(medicalDto.getMedicalCondition());
         medical.setAllergies(medicalDto.getAllergies());
