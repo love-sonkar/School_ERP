@@ -1,10 +1,8 @@
 package com.School_ERP.service;
 
 import com.School_ERP.dto.LibraryDto;
-import com.School_ERP.entity.Library;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

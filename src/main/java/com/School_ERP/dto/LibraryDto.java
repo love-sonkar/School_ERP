@@ -1,6 +1,5 @@
 package com.School_ERP.dto;
 
-import jakarta.persistence.Entity;
 import lombok.*;
 
 @Getter
