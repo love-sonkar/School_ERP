@@ -1,5 +1,6 @@
 package com.School_ERP.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 @Getter
