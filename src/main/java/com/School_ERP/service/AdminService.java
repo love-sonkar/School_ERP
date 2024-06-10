@@ -5,6 +5,7 @@ import com.School_ERP.entity.Admin;
 
 import java.util.List;
 
+
 public interface AdminService {
     Admin saveAdmin(AdminDTO adminDTO);
     List<Admin> getAllAdmins();
