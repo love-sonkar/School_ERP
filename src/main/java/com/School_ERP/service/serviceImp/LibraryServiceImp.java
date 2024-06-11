@@ -3,8 +3,7 @@ import com.School_ERP.dto.LibraryDto;
 import com.School_ERP.entity.Library;
 import com.School_ERP.repository.LibraryRepository;
 import com.School_ERP.service.LibraryService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,33 +19,33 @@ public class LibraryServiceImp implements LibraryService {
     @Autowired
     LibraryRepository libraryRepository;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
+
     @Override
     public List<LibraryDto> findAllBook() {
         List<Library> listLibrary = libraryRepository.findAll();
         List<LibraryDto> list = listLibrary.stream().map(library -> {
             LibraryDto dto = null;
-            try {
-                dto = new ObjectMapper().readValue(library.toString(), LibraryDto.class);
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
+                dto = this.modelMapper.map(library, LibraryDto.class);
             return dto;
         }).collect(Collectors.toList());
         return list;
     }
 
     @Override
-    public LibraryDto findByIdLibrary(long bookId) throws JsonProcessingException {
+    public LibraryDto findByIdLibrary(long bookId)  {
         Library library = libraryRepository.findByBookId(bookId);
-        LibraryDto lDto = new ObjectMapper().readValue(library.toString(), LibraryDto.class);
+        LibraryDto lDto = this.modelMapper.map(library, LibraryDto.class);;
         return lDto;
     }
 
 
     @Override
-    public ResponseEntity<?> addBook(LibraryDto libraryDto) throws JsonProcessingException {
+    public ResponseEntity<?> addBook(LibraryDto libraryDto)  {
         if(libraryDto.getBooks() != null){
-            Library library = new ObjectMapper().readValue(libraryDto.toString(), Library.class);
+            Library library =this.modelMapper.map(libraryDto, Library.class);
             libraryRepository.save(library);
             return ResponseEntity.ok(library);
         }
@@ -54,7 +53,7 @@ public class LibraryServiceImp implements LibraryService {
     }
 
     @Override
-    public ResponseEntity<?> assingeeBook(String studentId, String bookId) throws JsonProcessingException {
+    public ResponseEntity<?> assingeeBook(String studentId, String bookId)  {
         // get student from studentId
         return ResponseEntity.ok("assignee Book to student");
     }
@@ -66,27 +65,27 @@ public class LibraryServiceImp implements LibraryService {
     }
 
     @Override
-    public ResponseEntity<?> deleteBook(long bookId) throws JsonProcessingException {
+    public ResponseEntity<?> deleteBook(long bookId)  {
         Library library = libraryRepository.findByBookId(bookId);
         if(library == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not Found");
         }
         libraryRepository.delete(library);
-        LibraryDto libraryDto = new ObjectMapper().readValue(library.toString(), LibraryDto.class);
+        LibraryDto libraryDto = this.modelMapper.map(library, LibraryDto.class);
         return ResponseEntity.ok(libraryDto);
     }
 
     @Override
-    public ResponseEntity<?> updateBook(long bookId, LibraryDto libraryDto) throws JsonProcessingException {
+    public ResponseEntity<?> updateBook(long bookId, LibraryDto libraryDto)  {
         Library library = libraryRepository.findByBookId(bookId);
-        LibraryDto convertDto = new ObjectMapper().readValue(library.toString(),LibraryDto.class);
+        LibraryDto convertDto = this.modelMapper.map(library, LibraryDto.class);;
         if(library == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not Found");
         }
         if(libraryDto.getBooks() !=null){
             convertDto.setBooks(libraryDto.getBooks());
         }
-        Library updatedLibrary = new ObjectMapper().readValue(convertDto.toString(),Library.class);
+        Library updatedLibrary = this.modelMapper.map(convertDto,Library.class);
         libraryRepository.save(updatedLibrary);
         return ResponseEntity.ok(convertDto);
     }

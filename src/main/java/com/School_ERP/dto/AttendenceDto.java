@@ -2,6 +2,8 @@ package com.School_ERP.dto;
 
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -15,5 +17,5 @@ public class AttendenceDto {
     private int presentDays;
     private int totalLeaves;
     private int absent;
-    private long date;
+    private LocalDate date;
 }
