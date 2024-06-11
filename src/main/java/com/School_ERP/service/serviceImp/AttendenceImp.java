@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -72,6 +73,36 @@ public class AttendenceImp implements AttendenceService {
             return ResponseEntity.ok(convertDto);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something went Wrong");
+    }
+
+    @Override
+    public ResponseEntity<?> markPresentStudent(long rollNo, LocalDate date) {
+        Attendence attendence =new Attendence();
+        attendence.setRollNo(rollNo);
+        attendence.setPresentDays(1);
+        attendence.setDate(date);
+        Attendence savedStudent = attendenceRepository.save(attendence);
+        return ResponseEntity.ok("present student");
+    }
+
+    @Override
+    public ResponseEntity<?> markAbsentStudent(long rollNo, LocalDate date) {
+        Attendence attendence =new Attendence();
+        attendence.setRollNo(rollNo);
+        attendence.setAbsent(1);
+        attendence.setDate(date);
+        Attendence savedStudent = attendenceRepository.save(attendence);
+        return ResponseEntity.ok("absent student");
+    }
+
+    @Override
+    public ResponseEntity<?> markleaves(long rollNo, LocalDate date) {
+        Attendence attendence =new Attendence();
+        attendence.setRollNo(rollNo);
+        attendence.setTotalLeaves(1);
+        attendence.setDate(date);
+        Attendence savedStudent = attendenceRepository.save(attendence);
+        return ResponseEntity.ok("leave added");
     }
 
 
