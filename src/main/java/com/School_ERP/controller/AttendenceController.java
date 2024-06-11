@@ -1,9 +1,12 @@
 package com.School_ERP.controller;
 
 
+import com.School_ERP.dto.AttendenceDto;
 import com.School_ERP.entity.Attendence;
 import com.School_ERP.repository.AttendenceRepository;
+import com.School_ERP.service.AttendenceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +16,9 @@ public class AttendenceController {
 
     @Autowired
     private AttendenceRepository  attendenceRepository;
+
+    @Autowired
+    private AttendenceService attendenceService;
 
     @PostMapping("/mark")
     public String markAttendance(@RequestBody Attendence attendence) {
@@ -41,4 +47,10 @@ public class AttendenceController {
             return null;
         }
     }
+
+    @PostMapping("/overview")
+    public ResponseEntity<?> getStudentOverview(@PathVariable String rollNo){
+        return attendenceService.getOverView(Long.parseLong(rollNo));
+    }
+
 }
