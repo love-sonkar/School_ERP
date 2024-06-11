@@ -22,6 +22,6 @@ public class Attendence {
     private int presentDays;
     private int totalLeaves;
     private int absent;
-
+    private long date;
 
 }

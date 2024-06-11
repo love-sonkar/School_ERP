@@ -11,8 +11,9 @@ public class AttendenceDto {
 
     private long aId;
     private Long rollNo;
-    private int totaldays;
+    private int totalDays;
     private int presentDays;
     private int totalLeaves;
     private int absent;
+    private long date;
 }
