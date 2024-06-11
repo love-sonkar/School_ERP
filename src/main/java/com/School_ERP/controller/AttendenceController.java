@@ -5,6 +5,7 @@ import com.School_ERP.dto.AttendenceDto;
 import com.School_ERP.entity.Attendence;
 import com.School_ERP.repository.AttendenceRepository;
 import com.School_ERP.service.AttendenceService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -26,36 +28,33 @@ public class AttendenceController {
 
     @Operation(summary = "marking only present student")
     @PostMapping("/present/{rollNo}")
-    public ResponseEntity<?> markPresent(@PathVariable String rollNo) {
+    public ResponseEntity<?> markPresent(@PathVariable String rollNo, @RequestBody LocalDate date) {
         Attendence attendence =new Attendence();
         attendence.setRollNo(Long.parseLong(rollNo));
         attendence.setPresentDays(1);
-        long time = new Timestamp(System.currentTimeMillis()).getTime();
-        attendence.setDate(time);
+        attendence.setDate(date);
        Attendence savedStudent = attendenceRepository.save(attendence);
        return ResponseEntity.ok("present student");
     }
 
     @Operation(summary = "marking abesent students")
     @PostMapping("/absent/{rollNo}")
-    public ResponseEntity<?> markAbsent(@PathVariable String rollNo){
+    public ResponseEntity<?> markAbsent(@PathVariable String rollNo, @RequestBody LocalDate date){
         Attendence attendence =new Attendence();
         attendence.setRollNo(Long.parseLong(rollNo));
         attendence.setAbsent(1);
-        Long time = new Timestamp(System.currentTimeMillis()).getTime();
-        attendence.setDate(time);
+        attendence.setDate(date);
         Attendence savedStudent = attendenceRepository.save(attendence);
         return ResponseEntity.ok("absent student");
     }
 
     @Operation(summary = "adding the leaves")
     @PostMapping("/leaves/{rollNo}")
-    public ResponseEntity<?> markLeave(@PathVariable String rollNo){
+    public ResponseEntity<?> markLeave(@PathVariable String rollNo, @RequestBody LocalDate date){
         Attendence attendence =new Attendence();
         attendence.setRollNo(Long.parseLong(rollNo));
         attendence.setTotalLeaves(1);
-        long time = new Timestamp(System.currentTimeMillis()).getTime();
-        attendence.setDate(time);
+        attendence.setDate(date);
         Attendence savedStudent = attendenceRepository.save(attendence);
         return ResponseEntity.ok("leave added");
     }
@@ -63,8 +62,8 @@ public class AttendenceController {
 
     @Operation(summary = "Get an attendence by rollNo")
     @GetMapping("/{rollNo}")
-    public Attendence getAttendanceByRollNo(@PathVariable String rollNo) {
-        return attendenceRepository.findByRollNo(Long.parseLong(rollNo));
+    public ResponseEntity<?> getAttendanceByRollNo(@PathVariable String rollNo) {
+        return attendenceService.getAttendenceOverViewByRollNo(Long.parseLong(rollNo));
     }
 
     @Operation(summary = "Get all attendence")
@@ -73,23 +72,9 @@ public class AttendenceController {
         return attendenceRepository.findAll();
     }
 
-    @Operation(summary = "update an attendence")
-    @PutMapping("/{rollNo}")
-    public Attendence updateAttendance(@PathVariable String rollNo, @RequestBody Attendence attendance) {
-        Attendence existingAttendance = attendenceRepository.findByRollNo(Long.parseLong(rollNo));
-        if (existingAttendance != null) {
-            existingAttendance.setTotalDays(attendance.getTotalDays());
-            existingAttendance.setTotalLeaves(attendance.getTotalLeaves());
-            existingAttendance.setPresentDays(attendance.getPresentDays());
-            existingAttendance.setAbsent(attendance.getAbsent());
-            return attendenceRepository.save(existingAttendance);
-        } else {
-            return null;
-        }
-    }
-
-    @PostMapping("/overview")
-    public ResponseEntity<?> getStudentOverview(@PathVariable String rollNo){
-        return attendenceService.getOverView(Long.parseLong(rollNo));
+    @Operation(summary = "Add Student in attendence Sheet")
+    @PostMapping("/add")
+    public ResponseEntity<?> addStudent(@RequestBody AttendenceDto attendenceDto){
+        return attendenceService.addStudentInSheet(attendenceDto);
     }
 }

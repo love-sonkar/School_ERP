@@ -8,18 +8,18 @@ import java.util.List;
 
 public interface LibraryService {
 
-    ResponseEntity<?> addBook(LibraryDto libraryDto) throws JsonProcessingException;
+    ResponseEntity<?> addBook(LibraryDto libraryDto) ;
 
-    ResponseEntity<?> assingeeBook(String studentId, String bookId) throws JsonProcessingException;
+    ResponseEntity<?> assingeeBook(String studentId, String bookId) ;
 
     LibraryDto searchByBookName(String bookName);
 
-    ResponseEntity<?> deleteBook(long bookId) throws JsonProcessingException;
+    ResponseEntity<?> deleteBook(long bookId) ;
 
     List<LibraryDto> findAllBook();
 
-    LibraryDto findByIdLibrary(long bookId) throws JsonProcessingException;
+    LibraryDto findByIdLibrary(long bookId) ;
 
-    ResponseEntity<?> updateBook(long bookId, LibraryDto libraryDto) throws JsonProcessingException;
+    ResponseEntity<?> updateBook(long bookId, LibraryDto libraryDto) ;
 
 }
