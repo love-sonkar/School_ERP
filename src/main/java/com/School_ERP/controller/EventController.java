@@ -1,13 +1,14 @@
 package com.School_ERP.controller;
 
+import com.School_ERP.dto.EventDto;
 import com.School_ERP.links.EventLinks;
-import com.School_ERP.entity.Event;
-import com.School_ERP.repository.EventRepository;
-import com.School_ERP.service.serviceImp.EventService;
+import com.School_ERP.service.serviceImp.EventServiceImp;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,35 +22,34 @@ import java.util.List;
 public class EventController {
 
     @Autowired
-    EventRepository eventRepo;
+    EventServiceImp eventServiceImp;
 
     @Autowired
-    EventService eventService;
+    ModelMapper mapper;
 
     @Operation(summary = "This method returns All Events List.")
     @GetMapping(path = EventLinks.GET_ALL_EVENT)
-    public List<Event> getAllEvent(){
-        return eventRepo.findAll();
+    public List<EventDto> getAllEvent(){
+        return eventServiceImp.getAllEvent();
     }
 
-    @PostMapping(path = EventLinks.ADD_EVENT)
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, path = EventLinks.ADD_EVENT)
     @Operation(summary = "This method is to add Event.")
-    public ResponseEntity<?> addEvent(@RequestParam("event") String event, @RequestParam("picture") MultipartFile picture) throws Exception {
-        Event ee = new ObjectMapper().readValue(event.toString(),Event.class);
-        return eventService.addEventService(ee,picture);
+    public ResponseEntity<?> addEvent(@RequestParam("event") String eventJson, @RequestParam("picture") MultipartFile picture) throws Exception {
+        EventDto event = new ObjectMapper().readValue(eventJson,EventDto.class);
+        return eventServiceImp.addEvent(event, picture);
     }
 
     @PostMapping(path = EventLinks.UPDATE_LINK)
     @Operation(summary = "This method is to Update Event.")
-    public ResponseEntity<?> updateEvent(@RequestParam("event") String event, @PathVariable String id) throws Exception {
-        Event ee = new ObjectMapper().readValue(event.toString(),Event.class);
-        return eventService.updateEventService(ee, Long.parseLong(id));
+    public ResponseEntity<?> updateEvent(@RequestBody EventDto event, @PathVariable String id) throws Exception {
+        return eventServiceImp.updateEvent(event, Long.parseLong(id));
     }
 
     @Operation(summary = "This method is to Delete Event.")
     @DeleteMapping(path = EventLinks.DELETE_LINK)
     public ResponseEntity<?> deleteEvent(@PathVariable String id){
-        return eventService.deleteEvent(Long.parseLong(id));
+        return eventServiceImp.deleteEvent(Long.parseLong(id));
     }
 
 }

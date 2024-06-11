@@ -1,7 +1,10 @@
 package com.School_ERP.service.serviceImp;
 
+import com.School_ERP.dto.EventDto;
 import com.School_ERP.entity.Event;
 import com.School_ERP.repository.EventRepository;
+import com.School_ERP.service.EventService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,18 +14,34 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
-public class EventService {
+public class EventServiceImp implements EventService {
 
     @Autowired
     private EventRepository eventRepo;
 
+    @Autowired
+    private ModelMapper mapper;
 
-    public ResponseEntity<?> addEventService(Event event, MultipartFile picture) throws IOException {
+    @Override
+    public List<EventDto> getAllEvent(){
+        List<Event> event = eventRepo.findAll();
+        List<EventDto> list = event.stream().map(eventinner -> {
+            EventDto dto = null;
+            dto = mapper.map(eventinner, EventDto.class);
+            return dto;
+        }).collect(Collectors.toList());
+        return list;
+    }
+
+    @Override
+    public ResponseEntity<?> addEvent(EventDto event, MultipartFile picture) throws IOException {
         if (!picture.isEmpty()) {
-            String profileUploadDir = "D:\\new\\RWISchoolProject\\src\\main\\resources\\static\\picture";
+            String profileUploadDir = "D:\\School_ERP\\src\\main\\resources\\static\\picture";
             try {
                 String fileExtension = picture.getOriginalFilename()
                         .substring(picture.getOriginalFilename().lastIndexOf(".") + 1);
@@ -31,22 +50,25 @@ public class EventService {
                 File destFile = new File(filePath);
                 picture.transferTo(destFile);
                 Random rr = new Random();
-                event.setPicture(rr.nextInt(3) + "." + fileExtension);
+                event.setPicture(rr.nextInt(9999) + "." + fileExtension);
             } catch (IOException e) {
                 e.printStackTrace();
                 throw new IOException("Failed to save the picture: " + e.getMessage());
             }
         }
-        if(!event.getTitle().isEmpty() && !event.getDescription().isEmpty()){;
+        if(event.getTitle() != null && event.getDescription() != null){
             long time = new Timestamp(System.currentTimeMillis()).getTime();
             event.setCreateTimeStamp(time);
-            Event eventSave = eventRepo.save(event);
-           return ResponseEntity.ok(eventSave);
+            Event eventDto = mapper.map(event,Event.class);
+            Event eventSave = eventRepo.save(eventDto);
+            EventDto savedEventDto = mapper.map(eventSave,EventDto.class);
+            return ResponseEntity.ok(savedEventDto);
         }
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Error");
     }
 
-    public ResponseEntity<?> updateEventService(Event event, long id) throws IOException {
+    @Override
+    public ResponseEntity<?> updateEvent(EventDto event, long id) {
         Event ee = eventRepo.findById(id);
         if(ee == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event Not found");
@@ -56,11 +78,13 @@ public class EventService {
             ee.setDescription(event.getDescription());
             ee.setModifiedTimeStamp(new Timestamp(System.currentTimeMillis()).getTime());
             Event eventSave = eventRepo.save(ee);
-            return ResponseEntity.ok(eventSave);
+            EventDto eventDto = mapper.map(eventSave,EventDto.class);
+            return ResponseEntity.ok(eventDto);
         }
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Error");
     }
 
+    @Override
     public ResponseEntity<?> deleteEvent(long id){
         Event eventData = eventRepo.findById(id);
         if(eventData != null) {
