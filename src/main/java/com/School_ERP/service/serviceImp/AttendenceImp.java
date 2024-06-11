@@ -32,5 +32,10 @@ public class AttendenceImp implements AttendenceService {
         return list;
     }
 
+    @Override
+    public List<AttendenceDto> getAttendanceByRollNo() {
+        return List.of();
+    }
+
 
 }
