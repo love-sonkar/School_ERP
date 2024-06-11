@@ -29,11 +29,7 @@ public class AttendenceImp implements AttendenceService {
         List<Attendence> attendenceList = attendenceRepository.findAll();
         List<AttendenceDto> list = attendenceList.stream().map(attendance -> {
             AttendenceDto dto = null;
-            try {
-                dto = new ObjectMapper().readValue(attendance.toString(), AttendenceDto.class);
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
+            dto = this.modelMapper.map(attendance, AttendenceDto.class);
             return dto;
         }).collect(Collectors.toList());
         return list;
