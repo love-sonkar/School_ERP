@@ -7,4 +7,8 @@ public interface AttendenceRepository extends JpaRepository<Attendence, Long> {
 
     Attendence findByaId(Long aId);
     Attendence findByRollNo(Long rollNo);
+
+    int countByPresentDays(long presentDays);
+    int countByAbsent(long absent);
+    int countBytotalLeaves(long presentDays);
 }

@@ -4,6 +4,7 @@ package com.School_ERP.controller;
 import com.School_ERP.dto.AttendenceDto;
 import com.School_ERP.entity.Attendence;
 import com.School_ERP.repository.AttendenceRepository;
+import com.School_ERP.service.AttendenceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class AttendenceController {
     @Autowired
     private AttendenceRepository  attendenceRepository;
 
+    @Autowired
+    private AttendenceService attendenceService;
 
     @Operation(summary = "marking only present student")
     @PostMapping("/present/{rollNo}")
@@ -85,4 +88,8 @@ public class AttendenceController {
         }
     }
 
+    @PostMapping("/overview")
+    public ResponseEntity<?> getStudentOverview(@PathVariable String rollNo){
+        return attendenceService.getOverView(Long.parseLong(rollNo));
+    }
 }
