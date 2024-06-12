@@ -13,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -81,7 +83,7 @@ public class AttendenceImp implements AttendenceService {
         attendence.setRollNo(rollNo);
         attendence.setPresentDays(1);
         attendence.setDate(date);
-        Attendence savedStudent = attendenceRepository.save(attendence);
+        attendenceRepository.save(attendence);
         return ResponseEntity.ok("present student");
     }
 
@@ -91,7 +93,7 @@ public class AttendenceImp implements AttendenceService {
         attendence.setRollNo(rollNo);
         attendence.setAbsent(1);
         attendence.setDate(date);
-        Attendence savedStudent = attendenceRepository.save(attendence);
+        attendenceRepository.save(attendence);
         return ResponseEntity.ok("absent student");
     }
 
@@ -101,8 +103,27 @@ public class AttendenceImp implements AttendenceService {
         attendence.setRollNo(rollNo);
         attendence.setTotalLeaves(1);
         attendence.setDate(date);
-        Attendence savedStudent = attendenceRepository.save(attendence);
+        attendenceRepository.save(attendence);
         return ResponseEntity.ok("leave added");
+    }
+
+    @Override
+    public ResponseEntity<?> checkAttendenceByDate(long rollNo, LocalDate date) {
+        Attendence attendence = attendenceRepository.findByRollNoAndDate(rollNo, date);
+        if(attendence == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Student Not found in attendence list");
+        }
+        Map<String,String> responseMap = new HashMap<>();
+        if(attendence.getAbsent() == 1){
+            responseMap.put("message", "Student is Absent");
+        }
+        if(attendence.getPresentDays() == 1){
+            responseMap.put("message", "Student is Present");
+        }
+        if(attendence.getTotalLeaves() == 1){
+            responseMap.put("message", "Student is in Leave");
+        }
+        return ResponseEntity.ok(responseMap);
     }
 
 

@@ -21,4 +21,6 @@ public interface AttendenceService {
     ResponseEntity<?> markAbsentStudent(long rollNo, LocalDate date );
 
     ResponseEntity<?> markleaves(long rollNo, LocalDate date);
+    ResponseEntity<?> checkAttendenceByDate(long rollNo, LocalDate date);
+
 }
