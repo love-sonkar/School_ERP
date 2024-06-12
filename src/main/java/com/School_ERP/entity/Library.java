@@ -22,7 +22,7 @@ public class Library {
     private long bookId;
 
     @Schema(description = "Unique identifier for student", example = "2")
-    private long studentId;
+    private long adm_no;
 
     @Schema(description = "request to take book", example = "access granted")
     private String request;

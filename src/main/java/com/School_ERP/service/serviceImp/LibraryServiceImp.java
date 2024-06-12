@@ -46,6 +46,7 @@ public class LibraryServiceImp implements LibraryService {
     public ResponseEntity<?> addBook(LibraryDto libraryDto)  {
         if(libraryDto.getBooks() != null){
             Library library =this.modelMapper.map(libraryDto, Library.class);
+            library.setStatus("available");
             libraryRepository.save(library);
             return ResponseEntity.ok(library);
         }
@@ -53,15 +54,30 @@ public class LibraryServiceImp implements LibraryService {
     }
 
     @Override
-    public ResponseEntity<?> assingeeBook(String studentId, String bookId)  {
-        // get student from studentId
+    public ResponseEntity<?> assingeeBook(int adm_no, Long bookId)  {
+        Library library = libraryRepository.findByBookId(bookId);
+        if(adm_no==0){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something went wrong");
+        }
+        library.setStatus("not available");
+     library.setAdm_no(adm_no);
+        libraryRepository.save(library);
         return ResponseEntity.ok("assignee Book to student");
     }
 
 
     @Override
-    public LibraryDto searchByBookName(String bookName) {
-        return null;
+    public List<LibraryDto> searchByBookName(String books) {
+   List<Library> librarylist = libraryRepository.findByBooks(books);
+
+       List<LibraryDto> list = librarylist.stream().map(library -> {
+           LibraryDto dto = null;
+           dto = this.modelMapper.map(library, LibraryDto.class);
+           return dto;
+       }).collect(Collectors.toList());
+       return list;
+
+
     }
 
     @Override
@@ -89,6 +105,15 @@ public class LibraryServiceImp implements LibraryService {
         libraryRepository.save(updatedLibrary);
         return ResponseEntity.ok(convertDto);
     }
+    @Override
+    public ResponseEntity<?> returnBook(long bookId) {
+        Library library = libraryRepository.findByBookId(bookId);
+        library.setStatus("available");
+        library.setAdm_no(0);
+        libraryRepository.save(library);
+        return ResponseEntity.ok("Book return successfully");
+    }
+
 
 
 }

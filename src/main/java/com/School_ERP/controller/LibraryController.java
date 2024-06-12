@@ -1,6 +1,7 @@
 package com.School_ERP.controller;
 
 import com.School_ERP.dto.LibraryDto;
+import com.School_ERP.entity.Library;
 import com.School_ERP.links.LibraryLinks;
 import com.School_ERP.service.LibraryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,10 +44,19 @@ public class LibraryController {
         return libraryService.addBook(libraryDto);
     }
 
-    @PostMapping("/assignee-book/{studentId}/{bookId}")
+    @PostMapping(path = LibraryLinks.ASSIGNEDBOOK_TO_STUDENT)
     @Operation(summary = "Assigned book")
-    public ResponseEntity<?> assigneeBook(@PathVariable String studentId,@PathVariable String bookId) {
-        return libraryService.assingeeBook(studentId,bookId);
+    public ResponseEntity<?> assigneeBook(@PathVariable String adm_no,@PathVariable String bookId) {
+
+        return libraryService.assingeeBook(Integer.parseInt(adm_no),Long.parseLong(bookId));
+    }
+    @PostMapping(path = LibraryLinks.RETURNED_BOOK)
+    public ResponseEntity<?> returnBook(@PathVariable String bookId){
+        return libraryService.returnBook(Long.parseLong(bookId));
+    }
+    @PostMapping(path = LibraryLinks.SEARCH_BY_BOOK_NAME)
+    public List<LibraryDto> searchByBookName(@PathVariable String books){
+        return libraryService.searchByBookName(books);
     }
 
     @PutMapping(path = LibraryLinks.UPDATE_BOOK)
