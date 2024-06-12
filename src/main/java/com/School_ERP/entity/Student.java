@@ -72,5 +72,12 @@ public class Student {
 	@ManyToOne
 	@JoinColumn(name = "h_id")
 	private Hostel hostel;
+	
+	
+	@ManyToOne
+	private TimeTable timeTable;
+	
+	
+	
 
 }
