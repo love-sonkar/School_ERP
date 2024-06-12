@@ -41,4 +41,8 @@ public class StudentDto {
 	private String address;
 	
 	private String hostel_facility;
+	
+	private HostelDto hostel;
+	
+	private MedicalDto medical;
 }
