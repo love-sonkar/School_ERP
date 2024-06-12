@@ -27,7 +27,7 @@ public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="admission_number")
-	private int adm_no;
+	private int admNo;
 	
 	@Column(name="admission_date")
 	private LocalDate adm_date;
@@ -76,11 +76,11 @@ public class Student {
 	@ManyToOne
 	@JoinColumn(name = "hostel_id")
 	private Hostel hostel;
-	
+
 	@OneToOne
 	@JoinColumn(name = "medicalId")
 	private Medical medical;
-	
+
 	@ManyToOne
 	private TimeTable timeTable;
 	

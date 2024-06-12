@@ -67,4 +67,12 @@ public class AttendenceController {
     public ResponseEntity<?> addStudent(@RequestBody AttendenceDto attendenceDto){
         return attendenceService.addStudentInSheet(attendenceDto);
     }
+
+    @Operation(summary = "Check Attendence by Date")
+    @PostMapping(AttendenceLinks.CHECK_ATTENDENCE_BY_DATE)
+    public ResponseEntity<?> checkAttendenceByDate(@PathVariable String rollNo,@PathVariable LocalDate date){
+        return attendenceService.checkAttendenceByDate(Long.parseLong(rollNo),date);
+    }
+
+
 }

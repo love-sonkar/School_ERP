@@ -35,9 +35,8 @@ public class EventController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, path = EventLinks.ADD_EVENT)
     @Operation(summary = "This method is to add Event.")
-    public ResponseEntity<?> addEvent(@RequestParam("event") String eventJson, @RequestParam("picture") MultipartFile picture) throws Exception {
-        EventDto event = new ObjectMapper().readValue(eventJson,EventDto.class);
-        return eventServiceImp.addEvent(event, picture);
+    public ResponseEntity<?> addEvent(@RequestParam("title") String title, @RequestParam("description") String description, @RequestParam("picture") MultipartFile picture) throws Exception {
+        return eventServiceImp.addEvent(title, description, picture);
     }
 
     @PostMapping(path = EventLinks.UPDATE_LINK)
