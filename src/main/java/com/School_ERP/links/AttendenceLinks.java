@@ -1,6 +1,7 @@
 package com.School_ERP.links;
 
 public class AttendenceLinks {
+    public static final String ATTENDENCE = "/attendence";
     public static final String MARK_PRESENT = "/present/{rollNo}";
     public static final String MARK_ABSENT = "/absent/{rollNo}";
     public static final String MARK_LEAVE = "/leaves/{rollNo}";
