@@ -10,7 +10,7 @@ public interface LibraryService {
 
     ResponseEntity<?> addBook(LibraryDto libraryDto) ;
 
-    ResponseEntity<?> assingeeBook(String studentId, String bookId) ;
+    ResponseEntity<?> assingeeBook(String adm_no, String bookId) ;
 
     LibraryDto searchByBookName(String bookName);
 

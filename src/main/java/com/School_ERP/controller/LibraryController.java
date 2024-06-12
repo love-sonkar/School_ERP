@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping(LibraryLinks.LIBRARY)
 @Tag(name = "Library", description = "API for Library")
 public class LibraryController {
 

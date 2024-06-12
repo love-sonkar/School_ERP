@@ -59,6 +59,7 @@ public class EventServiceImp implements EventService {
         if(event.getTitle() != null && event.getDescription() != null){
             long time = new Timestamp(System.currentTimeMillis()).getTime();
             event.setCreateTimeStamp(time);
+            event.setModifiedTimeStamp(0);
             Event eventDto = mapper.map(event,Event.class);
             Event eventSave = eventRepo.save(eventDto);
             EventDto savedEventDto = mapper.map(eventSave,EventDto.class);
