@@ -1,10 +1,13 @@
 package com.School_ERP.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -22,6 +25,7 @@ public class Attendence {
     private int presentDays;
     private int totalLeaves;
     private int absent;
-
+    @Schema(description = "Date of Attendence", example = "2024/06/11")
+    private LocalDate date;
 
 }

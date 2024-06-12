@@ -81,5 +81,8 @@ public class Student {
 	@JoinColumn(name = "medicalId")
 	private Medical medical;
 	
+	@ManyToOne
+	private TimeTable timeTable;
+	
 
 }
