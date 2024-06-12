@@ -19,4 +19,5 @@ public interface StudentService {
 	
 //	// Delete student data
 	public String deleteStudent(int id);
+
 }
