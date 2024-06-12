@@ -39,9 +39,9 @@ public class MedicalServiceImpl implements MedicalService {
     public MedicalDto updateMedicalRecord(Long id, MedicalDto medicalDto) {
         Medical medical = medicalRepository.findById(id).orElseThrow(() -> new RuntimeException("Medical record not found"));
         medical.setHandicap(medicalDto.getHandicap());
-        medical.setMedical_condition(medicalDto.getMedicalCondition());
+        medical.setMedicalCondition(medicalDto.getMedicalCondition());
         medical.setAllergies(medicalDto.getAllergies());
-        medical.setBlood_group(medicalDto.getBloodGroup());
+        medical.setBloodGroup(medicalDto.getBloodGroup());
         Medical updatedMedical = medicalRepository.save(medical);
         return convertToDto(updatedMedical);
     }
@@ -55,9 +55,9 @@ public class MedicalServiceImpl implements MedicalService {
         MedicalDto medicalDto = new MedicalDto();
         medicalDto.setMedicalId(medical.getMedicalId());
         medicalDto.setHandicap(medical.getHandicap());
-        medicalDto.setMedicalCondition(medical.getMedical_condition());
+        medicalDto.setMedicalCondition(medical.getMedicalCondition());
         medicalDto.setAllergies(medical.getAllergies());
-        medicalDto.setBloodGroup(medical.getBlood_group());
+        medicalDto.setBloodGroup(medical.getBloodGroup());
         return medicalDto;
     }
 
@@ -65,9 +65,9 @@ public class MedicalServiceImpl implements MedicalService {
         Medical medical = new Medical();
         medical.setMedicalId(medicalDto.getMedicalId());
         medical.setHandicap(medicalDto.getHandicap());
-        medical.setMedical_condition(medicalDto.getMedicalCondition());
+        medical.setMedicalCondition(medicalDto.getMedicalCondition());
         medical.setAllergies(medicalDto.getAllergies());
-        medical.setBlood_group(medicalDto.getBloodGroup());
+        medical.setBloodGroup(medicalDto.getBloodGroup());
         return medical;
     }
 }

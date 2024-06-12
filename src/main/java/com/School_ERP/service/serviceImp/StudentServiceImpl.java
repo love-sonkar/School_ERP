@@ -1,6 +1,7 @@
 package com.School_ERP.service.serviceImp;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -48,30 +49,48 @@ public class StudentServiceImpl implements StudentService {
 	}
 	
 	// Update student
+	@Override
 	public String updateDetails(StudentDto std, int id) {
-		Student previousDetails = this.studentRepo.findById(id);
-		Student currentDetails = this.modelMapper.map(std, Student.class);
-		// Set new data to the old data
-		previousDetails.setFname(currentDetails.getFname());
-		previousDetails.setLname(currentDetails.getLname());
-		previousDetails.setContact(currentDetails.getContact());
-		previousDetails.setAddress(currentDetails.getAddress());
-		previousDetails.setEmail(currentDetails.getEmail());
-		previousDetails.setGender(currentDetails.getGender());
-		previousDetails.setBlood_group(currentDetails.getBlood_group());
-		previousDetails.setFather_name(currentDetails.getFather_name());
-		previousDetails.setMother_name(currentDetails.getMother_name());
-		previousDetails.setDob(currentDetails.getDob());
-		previousDetails.setSection(currentDetails.getSection());
-		previousDetails.setStandard(currentDetails.getStandard());
-		previousDetails.setHostel_facility(currentDetails.getHostel_facility());
-		
-		// Save the updated data
-		this.studentRepo.save(previousDetails);
-		
-		return "Student data updated successfully!";
+		Optional<Student> studentOpt = Optional.ofNullable(this.studentRepo.findById(id));
+		if (studentOpt.isPresent()) {
+			Student previousDetails = studentOpt.get();
+			Student currentDetails = this.modelMapper.map(std, Student.class);
+
+			// Update student details
+			previousDetails.setFname(currentDetails.getFname());
+			previousDetails.setLname(currentDetails.getLname());
+			previousDetails.setContact(currentDetails.getContact());
+			previousDetails.setAddress(currentDetails.getAddress());
+			previousDetails.setEmail(currentDetails.getEmail());
+			previousDetails.setGender(currentDetails.getGender());
+			previousDetails.setBlood_group(currentDetails.getBlood_group());
+			previousDetails.setFather_name(currentDetails.getFather_name());
+			previousDetails.setMother_name(currentDetails.getMother_name());
+			previousDetails.setDob(currentDetails.getDob());
+			previousDetails.setSection(currentDetails.getSection());
+			previousDetails.setStandard(currentDetails.getStandard());
+			previousDetails.setHostel_facility(currentDetails.getHostel_facility());
+
+			// Set hostel ID
+			if (currentDetails.getHostel() != null) {
+				previousDetails.setHostel(currentDetails.getHostel());
+			}
+
+			 // Set medical details
+	        if (currentDetails.getMedical() != null) {
+	            previousDetails.setMedical(currentDetails.getMedical());
+	        }
+
+			this.studentRepo.save(previousDetails);
+
+			return "Student data updated successfully!";
+		} else {
+			return "Student not found!";
+		}
 	}
+
 	
+
 	// Delete student data
 	public String deleteStudent(int id) {
 		this.studentRepo.deleteById(id);
