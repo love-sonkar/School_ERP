@@ -11,5 +11,7 @@ public interface StudentRepo extends CrudRepository<Student, Integer> {
 	public Student findById(int id);
 	
 	public List<Student> findAll();
+
+	Student findByAdmNo(int admNo);
 	
 }

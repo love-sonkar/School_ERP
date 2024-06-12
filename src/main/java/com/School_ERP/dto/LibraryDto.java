@@ -13,5 +13,5 @@ public class LibraryDto {
     private String request;
     private String status;
     private String books;
-    private int adm_no;
+    private int admNo;
 }

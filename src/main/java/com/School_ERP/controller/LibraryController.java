@@ -46,10 +46,16 @@ public class LibraryController {
 
     @PostMapping(path = LibraryLinks.ASSIGNEDBOOK_TO_STUDENT)
     @Operation(summary = "Assigned book")
-    public ResponseEntity<?> assigneeBook(@PathVariable String adm_no,@PathVariable String bookId) {
-
-        return libraryService.assingeeBook(Integer.parseInt(adm_no),Long.parseLong(bookId));
+    public ResponseEntity<?> assigneeBook(@PathVariable String admNo,@PathVariable String bookId) {
+        return libraryService.assingeeBook(Integer.parseInt(admNo),Long.parseLong(bookId));
     }
+
+    @PostMapping(path = LibraryLinks.GET_ASSIGNED_STUDENT)
+    @Operation(summary = "Get Student")
+    public ResponseEntity<?> getStudentOfAssignedBook(@PathVariable String bookId) {
+        return libraryService.getStudentOfAssignedBook(Long.parseLong(bookId));
+    }
+
     @PostMapping(path = LibraryLinks.RETURNED_BOOK)
     public ResponseEntity<?> returnBook(@PathVariable String bookId){
         return libraryService.returnBook(Long.parseLong(bookId));

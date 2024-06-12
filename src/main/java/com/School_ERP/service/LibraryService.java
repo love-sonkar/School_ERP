@@ -10,7 +10,8 @@ public interface LibraryService {
 
     ResponseEntity<?> addBook(LibraryDto libraryDto) ;
 
-    ResponseEntity<?> assingeeBook(int adm_no, Long bookId) ;
+    ResponseEntity<?> assingeeBook(int admNo, Long bookId);
+    ResponseEntity<?> getStudentOfAssignedBook(long bookId);
 
     List<LibraryDto> searchByBookName(String books);
 
