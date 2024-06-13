@@ -13,7 +13,7 @@ import lombok.Setter;
 
 public class TimeTableDTO {
 	
-	private int id;
+	private int timetable_id;
 	
 	private String teacher;
 	

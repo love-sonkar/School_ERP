@@ -80,6 +80,11 @@ public class StudentServiceImpl implements StudentService {
 	        if (currentDetails.getMedical() != null) {
 	            previousDetails.setMedical(currentDetails.getMedical());
 	        }
+	        
+	        if (currentDetails.getTimeTable() != null) {
+	            previousDetails.setTimeTable(currentDetails.getTimeTable());
+	        }
+	        
 
 			this.studentRepo.save(previousDetails);
 

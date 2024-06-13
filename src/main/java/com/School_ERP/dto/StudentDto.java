@@ -2,6 +2,8 @@ package com.School_ERP.dto;
 
 import java.time.LocalDate;
 
+import com.School_ERP.entity.TimeTable;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,4 +47,7 @@ public class StudentDto {
 	private HostelDto hostel;
 	
 	private MedicalDto medical;
+	
+	private TimeTableDTO timeTable;
+	
 }
