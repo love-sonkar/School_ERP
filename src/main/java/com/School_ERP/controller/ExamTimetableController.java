@@ -17,6 +17,7 @@ import com.School_ERP.dto.ExamTimetableDto;
 import com.School_ERP.links.ExamTimetableLinks;
 import com.School_ERP.service.ExamTimetableService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -28,26 +29,31 @@ public class ExamTimetableController {
 	private ExamTimetableService examTimetableService;
 	
 	@GetMapping
+	@Operation(summary = "Get all examtimetable records")
 	public List<ExamTimetableDto> getAllExamTimetables() {
         return examTimetableService.getAllExamTimetables();
     }
 
 	@GetMapping(ExamTimetableLinks.GET_EXAM_TIMETABLE)
+	@Operation(summary = "Get examtimetable records by ID")
 	public ResponseEntity<ExamTimetableDto> getExamTimetableById(@PathVariable Long id) {
         return ResponseEntity.ok(examTimetableService.getExamTimetableById(id));
     }
 
 	@PostMapping(ExamTimetableLinks.ADD_EXAM_TIMETABLE)
+	@Operation(summary = "Add examtimetable records")
 	public ResponseEntity<String> addExamTimetable(@RequestBody ExamTimetableDto examTimetableDto) {
         return ResponseEntity.ok(examTimetableService.addExamTimetable(examTimetableDto));
     }
 
 	@PutMapping(ExamTimetableLinks.UPDATE_EXAM_TIMETABLE)
+	@Operation(summary = "Update examtimetable records")
 	public ResponseEntity<String> updateExamTimetable(@RequestBody ExamTimetableDto examTimetableDto, @PathVariable Long id) {
         return ResponseEntity.ok(examTimetableService.updateExamTimetable(examTimetableDto, id));
     }
 
 	@DeleteMapping(ExamTimetableLinks.DELETE_EXAM_TIMETABLE)
+	@Operation(summary = "Delete examtimetable records")
     public ResponseEntity<String> deleteExamTimetable(@PathVariable Long id) {
         String message = examTimetableService.deleteExamTimetable(id);
         return ResponseEntity.ok(message);

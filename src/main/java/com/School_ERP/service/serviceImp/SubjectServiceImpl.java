@@ -1,4 +1,4 @@
-package com.School_ERP.service.serviceImpl;
+package com.School_ERP.service.serviceImp;
 
 import com.School_ERP.dto.SubjectDto;
 import com.School_ERP.entity.Subject;

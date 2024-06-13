@@ -45,4 +45,6 @@ public class StudentDto {
 	private HostelDto hostel;
 	
 	private MedicalDto medical;
+	
+	private ExamTimetableDto examtimetable;
 }
