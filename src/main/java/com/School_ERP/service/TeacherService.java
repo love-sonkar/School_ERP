@@ -7,9 +7,18 @@ import java.util.Optional;
 import org.springframework.http.ResponseEntity;
 
 public interface TeacherService {
-    ResponseEntity<?> saveTeacher(TeacherDto teacherDto);
-    List<TeacherDto> findAll();
-    Optional<TeacherDto> findById(int id);
-    void deleteById(int id);
-    void updateById(int id, TeacherDto teacherDto);
+	// Get student details by id
+			public TeacherDto getTeacherById(int id);
+			
+			// Add Teacher
+			public String addTeacher(TeacherDto teacherDto);
+			
+			// Get all the Teacher
+			public List<TeacherDto> getAllTeacher();
+			
+			// Update Teacher details
+			public String updateDetails(TeacherDto teacherDto, int id);
+			
+//			// Delete Teacher data
+			public String deleteTeacher(int id);
 }

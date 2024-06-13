@@ -4,6 +4,10 @@ package com.School_ERP.dto;
 
 import java.time.LocalDate;
 
+import com.School_ERP.entity.Subject;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 
 
@@ -22,6 +26,9 @@ public class TeacherDto {
     private String email;
     private String address;
     private LocalDate joinDate;
+    
+    private Subject subject;
+    
     
 	
 }

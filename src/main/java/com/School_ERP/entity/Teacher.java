@@ -1,15 +1,19 @@
 package com.School_ERP.entity;
 
 import java.sql.Date;
+
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -32,7 +36,12 @@ public class Teacher {
     private String email;
     private String address;
     
+    
     @Column
     @JsonFormat(shape=JsonFormat.Shape.STRING,pattern = "yyyy-mm-dd")
     private LocalDate joinDate;
+    
+    @OneToOne
+	@JoinColumn(name = "id")
+	private Subject subject;
 }
