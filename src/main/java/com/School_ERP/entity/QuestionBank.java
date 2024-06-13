@@ -18,8 +18,8 @@ public class QuestionBank {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long qbId;
+
     @Schema(description = "Choose subject", example = "Mathematics")
     private String subject;
 

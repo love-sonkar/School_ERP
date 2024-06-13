@@ -1,19 +1,18 @@
 package com.School_ERP.service;
 
+import com.School_ERP.dto.QuestionBankDto;
 import com.School_ERP.entity.QuestionBank;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 public interface QuestionBankService {
 
-    List<QuestionBank> getAllQuestionBanks();
-    List<QuestionBank> getQuestionBanksBySubject( String subject);
+    List<QuestionBankDto> getAllQuestionBanks();
+    List<QuestionBankDto> getQuestionBanksBySubject( String subject);
     ResponseEntity<?> addQuestionBank( QuestionBank questionBank);
-    ResponseEntity<QuestionBank> getQuestionBankBySubjectAndYear( String subject, int year);
-    List<QuestionBank> getQuestionBanksByYear(int year);
-    ResponseEntity<?> updateQuestionBankBySubjectAndYear( String subject,  int year, QuestionBank questionBank);
+    ResponseEntity<QuestionBankDto> getQuestionBankBySubjectAndYear( String subject, int year);
+    List<QuestionBankDto> getQuestionBanksByYear(int year);
+    ResponseEntity<?> updateQuestionBankBySubjectAndYear( String subject,  int year, QuestionBankDto questionBankDto);
 
 }
