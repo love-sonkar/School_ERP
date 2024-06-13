@@ -9,8 +9,9 @@ import lombok.*;
 @AllArgsConstructor
 @Data
 public class LibraryDto {
-    private long lid;
+    private long bookId;
     private String request;
     private String status;
     private String books;
+    private int admNo;
 }

@@ -13,7 +13,7 @@ import java.util.List;
 public interface EventService {
     List<EventDto> getAllEvent();
 
-    ResponseEntity<?> addEvent(EventDto event, MultipartFile picture) throws IOException;
+    ResponseEntity<?> addEvent(String title, String description, MultipartFile picture) throws IOException;
 
     ResponseEntity<?> updateEvent(EventDto event, long id);
 

@@ -39,13 +39,14 @@ public class EventServiceImp implements EventService {
     }
 
     @Override
-    public ResponseEntity<?> addEvent(EventDto event, MultipartFile picture) throws IOException {
+    public ResponseEntity<?> addEvent(String title, String description, MultipartFile picture) throws IOException {
+        EventDto event = new EventDto();
         if (!picture.isEmpty()) {
             String profileUploadDir = "D:\\School_ERP\\src\\main\\resources\\static\\picture";
             try {
                 String fileExtension = picture.getOriginalFilename()
                         .substring(picture.getOriginalFilename().lastIndexOf(".") + 1);
-                String filePath = profileUploadDir + File.separator + event.getTitle() + "_title" + "."
+                String filePath = profileUploadDir + File.separator + title + "_title" + "."
                         + fileExtension;
                 File destFile = new File(filePath);
                 picture.transferTo(destFile);
@@ -56,8 +57,10 @@ public class EventServiceImp implements EventService {
                 throw new IOException("Failed to save the picture: " + e.getMessage());
             }
         }
-        if(event.getTitle() != null && event.getDescription() != null){
+        if(title != null && description != null){
             long time = new Timestamp(System.currentTimeMillis()).getTime();
+            event.setTitle(title);
+            event.setDescription(description);
             event.setCreateTimeStamp(time);
             event.setModifiedTimeStamp(0);
             Event eventDto = mapper.map(event,Event.class);

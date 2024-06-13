@@ -20,9 +20,11 @@ import com.School_ERP.service.AdminService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(AdminLinks.ADMIN_LINK)
-
 @Tag(name = "Admin", description = "API for Admin Records Management")
 public class AdminController {
 
@@ -32,7 +34,7 @@ public class AdminController {
     // API to create a new admin
     @PostMapping(path = AdminLinks.ADD_ADMIN)
     @Operation(summary = "Create a new admin")
-    public ResponseEntity<String> createAdmin(@RequestBody AdminDTO adminDTO) {
+    public ResponseEntity<String> createAdmin(@Valid @RequestBody AdminDTO adminDTO) {
         Admin admin = adminService.saveAdmin(adminDTO);
         if (admin != null) {
             return ResponseEntity.ok("Admin successfully created");
@@ -44,7 +46,7 @@ public class AdminController {
     // API for admin login
     @PostMapping(path = AdminLinks.LOGIN_ADMIN)
     @Operation(summary = "Admin login")
-    public ResponseEntity<String> login(@RequestBody AdminDTO adminDTO) {
+    public ResponseEntity<String> login(@Valid @RequestBody AdminDTO adminDTO) {
         boolean isValid = adminService.checkLogin(adminDTO.getUserName(), adminDTO.getPassword());
         if (isValid) {
             return ResponseEntity.ok("Login successful");
@@ -80,7 +82,7 @@ public class AdminController {
     // API to update an admin
     @PutMapping(path = AdminLinks.UPDATE_ADMIN)
     @Operation(summary = "Update an admin")
-    public ResponseEntity<String> updateAdmin(@PathVariable Long id, @RequestBody AdminDTO adminDTO) {
+    public ResponseEntity<String> updateAdmin(@PathVariable Long id, @Valid @RequestBody AdminDTO adminDTO) {
         Admin admin = adminService.updateAdmin(id, adminDTO);
         if (admin != null) {
             return ResponseEntity.ok("Admin successfully updated");

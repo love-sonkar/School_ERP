@@ -8,5 +8,6 @@ public class AttendenceLinks {
     public static final String ADD_STUDENT = "/add";
     public static final String GET_ALL_ATTENDENCE = "/all";
     public static final String GET_ATTENDENCE_BY_ROLLNO = "/{rollNo}";
+    public static final String CHECK_ATTENDENCE_BY_DATE = "/roll-no/{rollNo}/date/{date}";
 
 }

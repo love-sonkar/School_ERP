@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudentDto {
-	private int adm_no;
+	private int admNo;
 	
 	private LocalDate adm_date;
 	

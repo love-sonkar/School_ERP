@@ -10,9 +10,10 @@ public interface LibraryService {
 
     ResponseEntity<?> addBook(LibraryDto libraryDto) ;
 
-    ResponseEntity<?> assingeeBook(String adm_no, String bookId) ;
+    ResponseEntity<?> assingeeBook(int admNo, Long bookId);
+    ResponseEntity<?> getStudentOfAssignedBook(long bookId);
 
-    LibraryDto searchByBookName(String bookName);
+    List<LibraryDto> searchByBookName(String books);
 
     ResponseEntity<?> deleteBook(long bookId) ;
 
@@ -21,5 +22,7 @@ public interface LibraryService {
     LibraryDto findByIdLibrary(long bookId) ;
 
     ResponseEntity<?> updateBook(long bookId, LibraryDto libraryDto) ;
+
+    ResponseEntity<?> returnBook(long bookId);
 
 }
