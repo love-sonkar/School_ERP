@@ -1,29 +1,49 @@
 package com.School_ERP.service.serviceImp;
 
+import com.School_ERP.dto.AttendenceDto;
+import com.School_ERP.dto.QuestionBankDto;
 import com.School_ERP.entity.QuestionBank;
 import com.School_ERP.repository.QuestionBankRepository;
 import com.School_ERP.service.QuestionBankService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class QuestionBankImp  implements QuestionBankService {
 
     @Autowired
     QuestionBankRepository questionBankRepository;
 
+    @Autowired
+    ModelMapper mapper;
+
 
     @Override
-    public List<QuestionBank> getAllQuestionBanks() {
-        return questionBankRepository.findAll();
+    public List<QuestionBankDto> getAllQuestionBanks() {
+        List<QuestionBank> questionBank = questionBankRepository.findAll();
+        List<QuestionBankDto> list = questionBank.stream().map(question -> {
+            QuestionBankDto dto = null;
+            dto = mapper.map(question, QuestionBankDto.class);
+            return dto;
+        }).collect(Collectors.toList());
+        return list;
     }
 
     @Override
-    public List<QuestionBank> getQuestionBanksBySubject(String subject) {
-        return questionBankRepository.findBySubject(subject);
+    public List<QuestionBankDto> getQuestionBanksBySubject(String subject) {
+        List<QuestionBank> questionBank = questionBankRepository.findBySubject(subject);
+        List<QuestionBankDto> list = questionBank.stream().map(question -> {
+            QuestionBankDto dto = null;
+            dto = mapper.map(question, QuestionBankDto.class);
+            return dto;
+        }).collect(Collectors.toList());
+        return list;
     }
 
     @Override
@@ -33,34 +53,42 @@ public class QuestionBankImp  implements QuestionBankService {
     }
 
     @Override
-    public ResponseEntity<QuestionBank> getQuestionBankBySubjectAndYear(String subject, int year) {
+    public ResponseEntity<QuestionBankDto> getQuestionBankBySubjectAndYear(String subject, int year) {
         QuestionBank questionBank = questionBankRepository.findBySubjectAndYear(subject, year);
         if (questionBank != null) {
-            return new ResponseEntity<>(questionBank, HttpStatus.OK);
+            QuestionBankDto convertToDto = mapper.map(questionBank, QuestionBankDto.class);
+            return new ResponseEntity<>(convertToDto, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @Override
-    public List<QuestionBank> getQuestionBanksByYear(int year) {
-        return questionBankRepository.findByYear(year);
+    public List<QuestionBankDto> getQuestionBanksByYear(int year) {
+        List<QuestionBank> questionBank = questionBankRepository.findByYear(year);
+        List<QuestionBankDto> list = questionBank.stream().map(question -> {
+            QuestionBankDto dto = null;
+            dto = mapper.map(question, QuestionBankDto.class);
+            return dto;
+        }).collect(Collectors.toList());
+        return list;
     }
 
     @Override
-    public ResponseEntity<?> updateQuestionBankBySubjectAndYear(String subject, int year, QuestionBank questionBank) {
+    public ResponseEntity<?> updateQuestionBankBySubjectAndYear(String subject, int year, QuestionBankDto questionBankDto) {
         QuestionBank questionbank = questionBankRepository.findBySubjectAndYear(subject, year);
         if (questionbank != null) {
-            if(questionBank.getSubject().isEmpty()){
+            if(questionBankDto.getSubject().isEmpty()){
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("subject is empty");
             }
-            if(questionBank.getYear()==0){
+            if(questionBankDto.getYear()==0){
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("year is empty");
             }
-            questionbank.setSubject(questionBank.getSubject());
-            questionbank.setYear(questionBank.getYear());
-            questionBankRepository.save(questionbank);
-            return new ResponseEntity<>(questionbank, HttpStatus.OK);
+            questionbank.setSubject(questionBankDto.getSubject());
+            questionbank.setYear(questionBankDto.getYear());
+            QuestionBank savedQuestionBank = questionBankRepository.save(questionbank);
+            QuestionBankDto convertToDto = mapper.map(savedQuestionBank, QuestionBankDto.class);
+            return new ResponseEntity<>(convertToDto, HttpStatus.OK);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("something went wrong");
     }
