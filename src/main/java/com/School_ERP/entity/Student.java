@@ -84,5 +84,8 @@ public class Student {
 	@ManyToOne
 	private TimeTable timeTable;
 	
+	@ManyToOne
+	@JoinColumn(name = "examtimetable")
+	private ExamTimetable examtimetable;
 
 }
