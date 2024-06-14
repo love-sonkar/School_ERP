@@ -25,7 +25,7 @@ import lombok.Setter;
 public class TimeTable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int timetable_id;
 	
 	@Column(name = "class_time")
 	private String time;

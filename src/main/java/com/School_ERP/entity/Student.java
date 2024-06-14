@@ -82,6 +82,7 @@ public class Student {
 	private Medical medical;
 
 	@ManyToOne
+	@JoinColumn(name = "timetable_id")
 	private TimeTable timeTable;
 	
 	@ManyToOne

@@ -26,6 +26,7 @@ public class QuestionBank {
     @Schema(description = "Choose year", example = "2023")
     private int year;
 
+    @Schema(description = "Choose any Documents", example = "maths_questionPaper.pdf")
     private String document;
 
 }
