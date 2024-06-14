@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.School_ERP.service.serviceImp.HostelServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,12 +24,14 @@ import com.School_ERP.links.HostelLinks;
 
 @RestController
 @RequestMapping(path = HostelLinks.HOSTEL_PATH)
+@Tag(name = "Hostel" , description = "API for Hostel management")
 public class HostelController {
 	
 	@Autowired
 	private HostelServiceImpl hostelService;
 	
 	@PostMapping(path = HostelLinks.ADD_HOSTEL)
+	@Operation(summary = "Add a new hostel")
 	public ResponseEntity<String> addHostel(@RequestBody HostelDto hostel) {
 		try {
 			String response = this.hostelService.addHostel(hostel);
@@ -39,6 +43,7 @@ public class HostelController {
 	}
 	
 	@GetMapping(path = HostelLinks.GET_ALL_STUDENT)
+	@Operation(summary = "Get all students present in hostel")
 	public ResponseEntity<List<HostelDto>> getAllStudent(){
 		try {
 			List<HostelDto> list = this.hostelService.getAllHostel();
@@ -53,6 +58,7 @@ public class HostelController {
 	}
 	
 	@GetMapping(path = HostelLinks.GET_HOSTEL_BY_ID)
+	@Operation(summary = "Get hostel by hostel Id")
 	public ResponseEntity<HostelDto> getHostelById(@PathVariable("hostelId") int id) {
 		try {
 			HostelDto response = this.hostelService.getHostelById(id);
@@ -67,6 +73,7 @@ public class HostelController {
 	}
 	
 	@DeleteMapping(path = HostelLinks.DELETE_HOSTEL_DETAILS)
+	@Operation(summary = "Delete Hostel from Database")
 	public ResponseEntity<String> deleteHostel(@PathVariable("hostelId") int id) {
 		try {
 			String response = this.hostelService.deleteHostel(id);
@@ -78,6 +85,7 @@ public class HostelController {
 	}
 	
 	@PutMapping(path = HostelLinks.UPDATE_HOSTEL_DETAILS)
+	@Operation(summary = "Update Hostel Details")
 	public ResponseEntity<String> updateHostelDetails(@RequestBody HostelDto hostel, @PathVariable("hostelId") int id) {
 		try {
 			String response = this.hostelService.updateHostelDetails(hostel, id);

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.School_ERP.service.serviceImp.StudentServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ import com.School_ERP.links.StudentLinks;
 
 @RestController
 @RequestMapping(path = StudentLinks.STUDENT_PATH)
+@Tag(name = "student" , description = "Student API's")
 public class StudentController {
 	
 	@Autowired
@@ -29,6 +32,7 @@ public class StudentController {
 	
 	// Get all the student
 	@GetMapping(path = StudentLinks.GET_ALL_STUDENT)
+	@Operation(summary = "Get  all students")
 	public ResponseEntity<List<StudentDto>> getAllStudent(){
 		try {
 			List<StudentDto> list = this.studentService.getAllStudent();
@@ -44,6 +48,7 @@ public class StudentController {
 	
 	// Get student data by id
 	@GetMapping(path = StudentLinks.GET_STUDENT_BY_ID)
+	@Operation(summary = "Get student by id")
 	public ResponseEntity<StudentDto> getStudentById(@PathVariable("studentId") int id){
 		try {
 			StudentDto student =  this.studentService.getStudentById(id);
@@ -59,6 +64,7 @@ public class StudentController {
 	
 	// Add student
 	@PostMapping(path = StudentLinks.ADD_STUDENT)
+	@Operation(summary = "Add new student")
 	public ResponseEntity<String> addStudent(@RequestBody StudentDto std){
 		try {
 			std.setAdm_date(LocalDate.now());
@@ -72,6 +78,7 @@ public class StudentController {
 	
 	// Update student details
 	@PutMapping(path = StudentLinks.UPDATE_STUDENT_DATA)
+	@Operation(summary = "Update student details")
 	public ResponseEntity<String> updateStudent(@RequestBody StudentDto std, @PathVariable("studentId") int id){
 		try {
 			if(std == null) {
@@ -87,6 +94,7 @@ public class StudentController {
 	
 	// Delete student data
 	@DeleteMapping(path = StudentLinks.DELETE_STUDENT_DATA)
+	@Operation(summary = "remove student ")
 	public ResponseEntity<String> deleteStudent(@PathVariable("studentId") int id){
 		try {
 			String response = this.studentService.deleteStudent(id);
