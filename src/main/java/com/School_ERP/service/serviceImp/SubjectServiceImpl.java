@@ -59,7 +59,7 @@ public class SubjectServiceImpl implements SubjectService {
         if (subject == null) {
             return null;
         }
-        return new SubjectDto(subject.getSubCode(), subject.getSubName(), subject.getDays(), subject.getWeeklyClasses());
+        return new SubjectDto(subject.getId(), subject.getSubCode(), subject.getSubName(), subject.getDays(), subject.getWeeklyClasses());
     }
 
     private Subject convertToEntity(SubjectDto subjectDto) {

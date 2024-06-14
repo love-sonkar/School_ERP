@@ -48,6 +48,10 @@ public class StudentDto {
 	
 	private MedicalDto medical;
 	
+<<<<<<< HEAD
 	private TimeTableDTO timeTable;
 	
+=======
+	private ExamTimetableDto examtimetable;
+>>>>>>> main
 }

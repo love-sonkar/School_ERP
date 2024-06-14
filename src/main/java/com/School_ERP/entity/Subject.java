@@ -25,7 +25,6 @@ public class Subject {
     @Column(name = "weekly_classes")
     private Integer weeklyClasses;
 
-    // @ManyToOne
-    // @JoinColumn(name = "employee_id", nullable = false)
-    // private EmployeeEntity employee;
+   // @OneToOne
+   // private Teacher teacher;
 }

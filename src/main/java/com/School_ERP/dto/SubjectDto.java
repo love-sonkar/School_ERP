@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SubjectDto {
+
+	
+	private long id;
     private String subCode;
     private String subName;
     private String days;

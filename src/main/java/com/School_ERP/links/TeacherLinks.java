@@ -2,11 +2,17 @@ package com.School_ERP.links;
 
 public class TeacherLinks {
 
-	  public final static String Teacher_LINK = "/teacher";
-	    public final static String GET_ALL = "/all/teacher";
-	    public final static String GET_Teacher= "/get/teacher/{id}";
-	    public final static String ADD_Teacher = "/save/teacher";
-	    public final static String UPDATE_Teacher = "/update/teacher/{Id}";
-	    public final static String DELETE_Teacher = "/delete/teacher/{Id}";
+	// Parent : Request Path
+		public final static String Teacher_PATH = "/teacher";
+		// Get teacher by id : Request Path
+		public final static String GET_Teacher_BY_ID = "/get/teacher/{Id}";
+		// Add teacher : Request Path
+		public final static String ADD_Teacher = "/add/teacher";
+		// Get all the teacher : Request Path
+		public final static String GET_ALL_Teacher = "/get/all/teacher";
+		// Update teacher details : Request Path
+		public final static String UPDATE_Teacher_DATA = "/update/teacher/{Id}";
+		// Delete teacher data : Request path
+		public final static String DELETE_Teacher_DATA = "/delete/teacher/{Id}";
 		
 }
